@@ -1,0 +1,295 @@
+meu aplicativo de finanças
+
+
+
+recursos:
+    tela inicial
+        mostrar mes atual
+            mostrar saldo geral atual
+                se houver alguma previsão, mostrar
+            mostrar saldos gerais de cada conta
+                se houver alguma previsão, mostrar pra cada conta
+            mostrar cartoes de credito
+                mostrar limite disponível
+                mostrar valor e mês da fatura atual
+            mostrar metas por cada categoria
+            mostrar botões para acessar
+                tela_HOME
+                tela_Lançamentos
+                tela_Adicionar_lançamento
+                tela_Relatórios
+                tela_Metas
+
+    tela lançamentos
+        botao que abre caixa de texto para pesquisa por nome do lançamentos
+        botao de filtros por
+            tipo
+            status
+            contas
+            categorias
+            tags
+        botao alternar visualização: adicionar lançamentos de cartoes
+        mostrar mes atual
+        mostrar lista cronológica (crescente ou decrescente) de lançamentos
+            mostrar ao lado de cada lançamento opção de edição, duplicação e deleção
+        mostrar receitas, despesas e saldo totais
+            mostrar previsão (caso haja lançamentos com com status:false)
+
+    tela novo registro:
+        escolher entre despesa(default) receita e transferencias
+        inserir valor: float
+        manter ou mudar status: false(default)
+        inserir descrição: string
+        manter ou mudar categoria: categoria outros(default)
+        manter ou mudar conta: conta (default)
+        manter ou mudar data: timestamp.now (default)
+        mostrar seção "repetir lançameto" com:
+            botao fixo
+                se pressionado, mostrar opções de periodicidade
+            botao parcelado
+                se pressionado, mostrar opções de quantidade de parcelas e periodicidade
+        mostrar caixa de texto 'adicionar tags'
+            ao digitar string, mostrar opções de tags já cadastradas e opção de adicionar no tag com a string atual
+        mostrar caixa de texto 'observação'
+        mostrar botao de adicionar anexo (arquivos)
+        botão de confirmação
+            ação
+                adicionar registro ao bd
+
+    tela edição de registro
+        manter ou mudar entre despesa(default) receita e transferencias
+        manter ou mudar valor: float
+        manter ou mudar status: false(default)
+        manter ou mudar descrição: string
+        manter ou mudar categoria: categoria outros(default)
+        manter ou mudar conta: conta (default)
+        manter ou mudar data: timestamp.now (default)
+        mostrar seção "repetir lançameto" com:
+            botao fixo
+                se pressionado, mostrar opções de periodicidade
+            botao parcelado
+                se pressionado, mostrar opções de quantidade de parcelas e periodicidade
+        mostrar caixa de texto 'adicionar tags'
+            ao digitar string, mostrar opções de tags já cadastradas e opção de adicionar no tag com a string atual
+        mostrar caixa de texto 'observação'
+        mostrar botao de adicionar anexo (arquivos)
+        botão de confirmação
+            ação
+                editar?
+                    apenas este registro
+                    este registro e os próximos
+                    tudo
+                buscar e atualizar registros correspondentes no bd
+
+
+
+Banco de dados
+    tabela registros
+        desc: String
+        valor: Float
+        status: Boolean // resolvido ou pendente
+        categoria: tabela categorias
+        caixa: lista tabelas caixas e cartoes de credito
+        data: editável mas com valor padrão = data atual: dia, mes, ano
+        repetir_lançamento: Boolean, default false
+        key: Hash, para manipulação de todos os itens criados em cada mes caso repetir=True
+        fixo: opções de período, default:mensal
+        parcelado: quantidade de parcelas, default:1        
+        tags: listar opções tabela tags
+        atrasado?: Boolean
+
+    tabela caixas
+        nome: String
+        tipo: tabela contas || tabela cartoes
+        cahve estrangeira: do tipo acima
+
+        tabela contas
+            valor: Float
+            tipo: conta corrente, poupança, outros
+
+        tabela cartoes
+            instituição: String lista
+            vencimento: Int
+            fechamento: Int
+            limite:
+                total: Float
+                usado: Float
+                disponivel: Float
+            conta pagadora: listar tabela contas
+
+    tabela meses
+        mês: string
+        total
+            lançamentos: int
+            despesas: Float
+            receitas: Float
+            balanço: Float
+
+    tabela anos
+        ano: int
+        total
+            lançamentos: int
+            despesas: Float
+            receitas: Float
+            balanço: Float
+
+    tabela tags
+        tag: String
+        n_lançamentos: int
+        lançamentos: select * from REGISTROS where tag = String
+
+    tabela categorias
+        nome: String
+        n_lançamentos: int
+        lançamentos: select * from REGISTROS where categoria = String
+
+
+
+
+
+
+
+
+
+
+
+registro {
+    nome: String
+    valor: Float digitar apenas números e converter para moeda local
+    status: Boolean // resolvido ou pendente
+    caixa: lista com opções
+    data: editável mas com valor padrão = data atual
+    repetir_lançamento:{
+        default: false
+        case true
+            key: para manipulação de todos os itens criados em cada mes
+            fixo: opções de período
+            parcelado: quantidade de parcelas
+    }
+    tags: lista com opções ou adicionar nova na hora
+
+    atrasado?: Boolean
+}
+
+receita, despesa extends registro {
+    ...
+    tipo: receita || despesa
+    categoria: opções de acordo com a classe
+}
+
+transferencias extends registro {
+    ...
+    tipo: transf
+    caixa_destino: lista com opções
+}
+
+
+
+
+
+tela_HOME {
+    saldo geral:
+        atual: soma de todas as operações efetivadas do primeiro até dia atual do mês corrente
+        previsto: soma de todas as operações efetivadas do primeiro até último dia do mês corrente
+    
+    saldo por contas: listar contas cadastradas
+        atual: soma de todas as operações efetivadas primeiro até dia atual do mês corrente
+        previsto: soma de todas as operações efetivadas primeiro até último dia do mês corrente
+    
+    cartoes de credito: listar todos cadastrados
+        nome: String
+        limite:
+            total: Float
+            usado: Float
+            disponivel: Float
+        fatura:
+            anteriores: listar para trás, por mês, a partir do mês anterior a fatura atual não paga
+            atual: {
+                valor: Float
+                paga?: Boolean
+            }
+            próximas: listar para frente, por mês, a partir do mês seguinte a fatura atual paga
+    
+    menu:
+        HOME
+        Lançamentos
+        Adicionar_lançamento
+        Relatórios
+        Metas
+
+}
+
+tela_Lançamentos {
+    pesquisar?: registro.nome
+    filtrar?:
+        tipo de registro: receita, despesa, transf, fixos e parcelados
+        status: resolvido, pendente
+        contas: lista de contas cadastradas
+        categorias: lista de categorias checkboxs
+        tags: lista de tags criadas
+    mês: mês atual por padrão com slider para mês antecedente e subsequente
+    registros: listar todos registros {}
+        seções: por dia que tenha registro {} crescente ou decrescente
+        clicar registro?: tela_Editar_Registro
+            tipo de registro?
+            status?
+            descrição?
+            categoria?
+            caixa?
+            data?
+            repetir?
+            tags?
+    totais:
+        atuais:
+        previstas:
+            receita, despesa, saldo
+        
+}
+
+tela_Adicionar_lançamento {
+    tipo: slider com despesa, receita e transf. // this.tipo
+    valor: this.valor
+    status: this.status
+    descrição: this.nome
+    categoria: this.categoria
+    caixa: this.caixa
+    data: this.data
+    repetir?
+    tags?
+
+}
+
+tela_Relatórios {
+    mês: mês atual por padrão com slider para mês antecedente e subsequente
+    considerar movimentações não pagas: Boolean
+    balanço:
+        filtrar por conta? padrão = todas as contas
+        gráfico
+            receitas
+            despesas
+            saldo
+    despesas por categoria: listar lançamentos tipos despesa,
+    por categoria e somatório dos valores, de forma decrescente, do mês corrente,
+    incluindo os lançamentos dentro de cada cartao de credito. E mostrar proporção em %
+        cada categoria: lista todas as dispesas do mesmo tipo no mes corrente de forma crescente
+
+}
+
+tela_Metas {
+    criar nova meta?
+    lista de metas: listar metas cadastradas
+        categoria: lista de categorias
+        disponível: somatório de lançamentos dessa categorias
+        estipulado: valor alvo
+        barra de proporção: disponível/estipulado*100 %
+    clicar meta específica?: tela_Editar_meta
+        categoria?:
+        editar?
+        deletar?
+        mês: mês atual por padrão com slider para mês antecedente e subsequente
+        disponível: somatório de lançamentos dessa categorias
+        estipulado: valor alvo
+        barra de proporção: disponível/estipulado*100 %
+        lista de lancamentos da categoria: listar e mostrar todas de forma crescente
+
+}

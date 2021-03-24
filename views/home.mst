@@ -1,0 +1,12 @@
+<html>
+<head>
+    <title>Financer</title>
+    <link rel="stylesheet" href="/template.css" />
+</head>
+<body>
+
+<h1>Financer</h1>
+<h2>Home</h2>
+<a href="/new">New Register<a>
+</body>
+</html>
