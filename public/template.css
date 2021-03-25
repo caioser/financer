@@ -1,8 +1,70 @@
 body {
-    background-color: #222;
+    background-color: #444;
     color: #ddd
+}
+.vborder {
+    border: 1px dashed green;
+}
+
+#form-container {
+    background-color: #1c1c1c;
+    margin: 25px;
+    width: 400px;
+}
+
+#operation {
+    display: flex;
+}
+/*========================================*/
+/* VALUE number input */
+#value-container {
+    box-sizing: border-box;
+    width: 400px;
+}
+#value-container input {
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background-color: none;
+    height: 100px;
+    width: 100%;
+    font-size: 45px;
+    font-weight: bolder;
+    text-align: right;
+}
+/* removing spin button */
+#value-container input::-webkit-outer-spin-button,
+#value-container input::-webkit-inner-spin-button {/* Chrome, Safari, Edge, Opera */
+    -webkit-appearance: none;
+    margin: 0;
+}
+#value-container input[type=number] {/* Firefox */
+    -moz-appearance: textfield;
+}
+/*========================================*/
+/* NEXT ELEment*/
+.input-container {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 400px;
+
 }
 
 .hidden {
-    display: inline-block;
+    width: 50px;
+    height: 40px;
 }
+
+.red { background-color: #f22f2f; }
+.green { background-color: #09e888; }
+.none { display: none; }
+/*
+input, select {
+    border: none;
+    outline: none;
+    background-color: #bbb;
+    border-top: 4px solid #7a7a7a;
+    padding: 10px 5px;
+    width: 380px;
+}
+*/
