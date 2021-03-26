@@ -24,7 +24,7 @@ function load() {
     frontv.addEventListener(
         'input',
         function() {
-            if (frontv.value === "") {frontv.value="0"}
+            if (frontv.value === "" ) {frontv.value="0"}
             current = frontv.value;
             history = parseInt(current
                     .split("")
@@ -33,6 +33,7 @@ function load() {
                     )
                 .toString()
                 .padStart(3,"0");
+            if (isNaN(history)) {history = "000"}
 // como(`current1:${current}`);
 // como(`history1:${history}`);
             if (history.length>5){
