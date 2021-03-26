@@ -1,4 +1,6 @@
-console.log('act')
+
+let current = "0,00";
+let como = tx=>console.log(tx);
 
 function load() {
     let el = Object.values(document.querySelectorAll(".hidden"));
@@ -10,7 +12,7 @@ function load() {
 
     let backv = document.querySelector('#back-value');
     let frontv = document.querySelector('#front-value');
-    let digited = [];
+    let history = "";
     frontv.addEventListener(
         'click',
         function() {
@@ -22,35 +24,43 @@ function load() {
     frontv.addEventListener(
         'input',
         function() {
-            let dft = ["0", ",", "0", "0"];
-            let current = frontv.value.split("");
-            if ( current > 4 ) {
-                digited.push(current.pop());
-                current.splice(-digited.length, digited.length);
-                frontv.value = current.join("");
+            if (frontv.value === "") {frontv.value="0"}
+            current = frontv.value;
+            history = parseInt(current
+                    .split("")
+                    .filter(el => {if (!isNaN(el)){return el}})
+                    .join("")
+                    )
+                .toString()
+                .padStart(3,"0");
+// como(`current1:${current}`);
+// como(`history1:${history}`);
+            if (history.length>5){
+                let aux = "";
+                let dif = 0;
+                let ints = history.slice(0,-2);
+                ints = ints.split("").reverse().join("");
+                for (var i = 3; i < ints.length ; i+=3){
+                    aux += ints.slice(-3+i,i)+".";
+                    dif = ints.length - i;
+                }
+                ints = ints.split("").reverse().join("");
+                aux = aux.split("").reverse().join("");
+                ints = ints.slice(0,dif)+aux;
+// como(`history 2:${history}`);
+                history = ints+","+history.slice(-2);
+// como(`current 2:${current}`);
+// como(`history 3:${history}`);
+// como(`inteiros:${ints} = ${typeof ints}`);
+            } else {
+                history = history.slice(0,-2)+","+history.slice(-2)
             }
-            console.log(current);
-            console.log(digited);
-
-            
-
-        },
-        false
-    );
-
-    backv.addEventListener(
-        'input',
-        function() {
-            /* receive front and respond*/
-            
-            
-            backv.setAttribute('value', backv.value);
-            console.log(backv.getAttribute('value'));
+            current = history;
+            frontv.value = current;
         },
         false
     );
 }
-
 function setBool(id) {
     let trigger = document.getElementById(id);
     let hidden = document.getElementsByName(id)[0];
@@ -64,5 +74,5 @@ function setBool(id) {
         trigger.className = "hidden red";
     }
 
-    //console.log('trocou  para ');
+    //  console.log('trocou  para ');
 }    
