@@ -1,6 +1,14 @@
+
+* {
+    font-family: 'Circular Std Book', Arial, Helvetica, sans-serif;
+}
 body {
     background-color: #444;
     color: #ddd
+}
+a {
+    text-decoration: none;
+    color: inherit;
 }
 .vborder {
     border: 1px dashed green;
@@ -11,23 +19,73 @@ body {
     margin: 25px;
     width: 400px;
 }
-
-#operation {
-    display: flex;
+#bkgrd {
+    background-color: darkorange;
 }
+
+/*========================================*/
+/* OPERATION type input */
+#op-grid-container {
+    background-color: inherit;
+    display: grid;
+    grid-template-rows: 30px 5px;
+
+}
+#op-line1 {
+    background-color: inherit;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr;
+}
+#op-line1 div {
+    line-height: 30px;
+    text-align: center;
+}
+
+#op-line2 {
+    display: flex;
+    background-color: inherit;
+}
+#move {
+    position: relative;
+    width: 114px;
+    height: 5px;
+    background-color: inherit;
+    transition: width 500ms;
+}
+#ball {
+    background-color: black;
+    width: 5px;
+    height: 5px;
+    border-radius: 2.5px;
+}
+
+
+/*========================================*/
+/* CONTAINER with op icon, VALUE input and STATUS input*/
+#three-items {
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+}
+
+
+/*========================================*/
+/* op-icon */
+
+
+
 /*========================================*/
 /* VALUE number input */
 #value-container {
     box-sizing: border-box;
-    width: 400px;
 }
 #value-container input {
     box-sizing: border-box;
     border: none;
     outline: none;
-    background-color: none;
+    background-color: inherit;
     height: 100px;
     width: 100%;
+    font-family: 'Circular Std';
     font-size: 45px;
     font-weight: bolder;
     text-align: right;
@@ -41,7 +99,33 @@ body {
 #value-container input[type=number] {/* Firefox */
     -moz-appearance: textfield;
 }
+
+
 /*========================================*/
+/* STATUS input */
+#status-container {
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+}
+#status {
+    margin-top: 30px;
+    width: 25px;
+    height: 32.5px;
+    
+}
+#status:hover {
+    animation-name: example;
+    animation-duration: 200ms;
+}
+@keyframes example {
+    0% {transform: scale(0.5,0.5);}
+    50% {transform: scale(1,1);}
+    80% {transform: scale(0.8,0.8);}
+    100% {transform: scale(1,1);}
+}
+
+
 /* NEXT ELEment*/
 .input-container {
     box-sizing: border-box;
@@ -51,8 +135,7 @@ body {
 }
 
 .hidden {
-    width: 50px;
-    height: 40px;
+    text-decoration: none;
 }
 
 .red { background-color: #f22f2f; }

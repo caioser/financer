@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const regisSchema = new mongoose.Schema({
+    transaction: String,
     desc: String,
     value: Number,
     status: Boolean,

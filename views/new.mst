@@ -1,35 +1,45 @@
 <html>
 <head>
     <title>Financer</title>
+    <link rel="stylesheet" href="/fonts/fontfaces.css" />
     <link rel="stylesheet" href="/template.css" />
 </head>
 <body onload="load();">
 <form id="form-container" class="" method="POST">
 
-    <label>
-    <div id="operation">
-        <div>Expense</div>
-        <div>Incoming</div>
-        <div>Transfer</div>
-    </div>
-        <input type="hidden" name="transaction" value="" />
-    </label>
-    <br/>
+    <div id="bkgrd">
+        <div id="op-grid-container">
+            <div id="op-line1">
+                <a href="/"><div>Back</div></a>
+                <div>Expense</div>
+                <div>Incoming</div>
+                <div>Transfer</div>
+            </div>
+            <div id="op-line2">
+                <div id="move"></div>
+                <div id="ball"></div>
+            </div>
+        </div>
+            <input type="hidden" name="transaction" value="expense" />
 
-    <label>
-    <div id="value-container" class="">
-        <input id="front-value" type="text" name="frontvalue" value="0,00" />
-        <input id="back-value" class="red" type="number" step="0.01" name="value" value="0.00" />
-    </div>
-    </label>
-    <br/>
+        <div id="three-items">
+            <div id="op-icon">-
+            </div>
+            <label>
+            <div id="value-container" class="">
+                <input id="front-value" type="text" name="frontvalue" value="0,00" />
+                <input id="back-value" class="none" type="number" step="0.01" name="value" value="0.00" />
+            </div>
+            </label>
+        
 
-    <label>
-        <div>Status:</div>
-        <div class="hidden red" id="status"></div>
-        <input type="hidden" name="status" value="false" />
-    </label>
-    <br/>
+            <div id="status-container">
+                <img class="hidden red" id="status" src="/like.png">
+                <input type="hidden" name="status" value="false" />
+            </div>
+        </div>
+    </div>
+        <br/>
 
 
 
