@@ -1,6 +1,11 @@
 <html>
 <head>
     <title>Financer</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <link rel="stylesheet" href="/fonts/fontfaces.css" />
     <link rel="stylesheet" href="/template.css" />
 </head>
@@ -10,10 +15,10 @@
     <div id="bkgrd">
         <div id="op-grid-container">
             <div id="op-line1">
-                <a href="/"><div>Back</div></a>
-                <div>Expense</div>
-                <div>Incoming</div>
-                <div>Transfer</div>
+                <a href="/"><img id="btn-back"src="/back.png"></a>
+                <div id="ex">Expense</div>
+                <div id="in">Incoming</div>
+                <div id="tr">Transfer</div>
             </div>
             <div id="op-line2">
                 <div id="move"></div>
@@ -23,7 +28,8 @@
             <input type="hidden" name="transaction" value="expense" />
 
         <div id="three-items">
-            <div id="op-icon">-
+            <div id="op-icon">
+                <img id="op-icon-img" src="/expense.png" >
             </div>
             <label>
             <div id="value-container" class="">
@@ -34,7 +40,7 @@
         
 
             <div id="status-container">
-                <img class="hidden red" id="status" src="/like.png">
+                <img id="status" src="/unlike.png">
                 <input type="hidden" name="status" value="false" />
             </div>
         </div>
